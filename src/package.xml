@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Package xmlns="http://soap.sforce.com/2006/04/metadata">
+    <types>
+    	<members>autoCompleteController</members>
+    	<members>JobEditController</members>
+    	<members>JobsTableController</members>
+    	<members>ScheduledJobTriggerHandler</members>    	
+        <members>testAutoCompleteController</members>
+        <members>testJobEditController</members>
+        <members>testJobsTableController</members>
+        <members>testScheduledJobTrigger</members>    
+        <name>ApexClass</name>
+    </types>
+
+    <types>
+    	<members>ScheduledJobTrigger</members>
+    	<name>ApexTrigger</name>
+    </types>
+
+    <types>
+    	<members>JobEdit</members>
+    	<members>JobsTable</members>
+    	<name>ApexPage</name>
+    </types>
+
+     <types>
+    	<members>AutoComplete</members>
+    	<name>ApexComponent</name>
+    </types>
+
+    <types>
+        <members>Scheduled_Job__c</members>
+        <name>CustomObject</name>
+    </types>
+
+    <types>
+        <members>ScheduledJobsTable</members>        
+        <members>loadingIcon</members>
+        <name>StaticResource</name>
+    </types>
+
+    <version>30.0</version>
+</Package>

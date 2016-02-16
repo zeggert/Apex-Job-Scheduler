@@ -3,7 +3,7 @@
 *************************************************/
 
 public with sharing class JobsTableController {
-	public List<Scheduled_Job__c> jobs {get;set;}	   
+    public List<Scheduled_Job__c> jobs {get;set;}      
     public string SelectedJobId { get; set; }
     public string view {get;set;}
     private List<String> CronTriggerIds = new List<String>();
@@ -12,7 +12,7 @@ public with sharing class JobsTableController {
     public Map<String, CronTrigger> cronTriggerMap = new Map<String, CronTrigger>();
     
     //constructor
-    public JobsTableController(){    	  
+    public JobsTableController(){         
         //test
         if(wrapJobList == null) {
             wrapJobList = new List<wrapJob>();
@@ -35,18 +35,18 @@ public with sharing class JobsTableController {
 
           //get unactive jobs
           } else if(view == 'Not Active'){
-           	jobs = [SELECT Id, Name, Active__c, Run_Units__c, Run_Frequency__c, Apex_Class__c, CronTriggerId__c, CreatedBy.Name, CreatedDate
+            jobs = [SELECT Id, Name, Active__c, Run_Units__c, Run_Frequency__c, Apex_Class__c, CronTriggerId__c, CreatedBy.Name, CreatedDate
                    FROM Scheduled_Job__c
                    WHERE Active__c = false
                    ORDER BY CreatedDate DESC];
 
           //get all jobs
           } else {
-      			jobs = [SELECT Id, Name, Active__c, Run_Units__c, Run_Frequency__c, Apex_Class__c, CronTriggerId__c, CreatedBy.Name, CreatedDate
+                jobs = [SELECT Id, Name, Active__c, Run_Units__c, Run_Frequency__c, Apex_Class__c, CronTriggerId__c, CreatedBy.Name, CreatedDate
                        FROM Scheduled_Job__c                 
                        ORDER BY CreatedDate DESC]; 
           } 
-          
+          //test
           //for every job in jobs list, create a wrapper and add it to list
           for(Scheduled_Job__c j : jobs){
               wrapJobList.add(new wrapJob(j));
@@ -60,7 +60,7 @@ public with sharing class JobsTableController {
         
         CronTriggers = [SELECT Id, NextFireTime, PreviousFireTime, State, CronJobDetail.Name, CronJobDetail.JobType, CronExpression
                         FROM CronTrigger
-                       	WHERE Id IN : CronTriggerIds]; 
+                        WHERE Id IN : CronTriggerIds]; 
         
         for(CronTrigger ct : CronTriggers){ 
             String CronID = String.valueOf(ct.Id);
@@ -102,7 +102,7 @@ public with sharing class JobsTableController {
     
     public void DeleteJob(){
         if (SelectedJobId == null) {      
-       		return;
+            return;
         }
         Scheduled_Job__c tobeDeleted = null;
         for(Scheduled_Job__c j : jobs){
@@ -110,14 +110,14 @@ public with sharing class JobsTableController {
               tobeDeleted = j;
               break;
            }
-    	}           
-      	//if job record found delete it
-     	if (tobeDeleted != null) {
-      		Delete tobeDeleted;
-      	}       
-     	LoadData();
+        }           
+        //if job record found delete it
+        if (tobeDeleted != null) {
+            Delete tobeDeleted;
+        }       
+        LoadData();
         CreateCronMap();
-   	}
+    }
     
      public void ActivateJobs(){
         for (WrapJob w: WrapJobList){
